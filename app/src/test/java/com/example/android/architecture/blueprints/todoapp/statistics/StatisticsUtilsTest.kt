@@ -23,10 +23,8 @@ class StatisticsUtilsTest {
 
     @Test
     fun getActiveAndCompletedStats_empty_returnsZeros() {
-        //Given
-        val tasks = listOf<Task>()
         //When
-        val result = getActiveAndCompletedStats(tasks)
+        val result = getActiveAndCompletedStats(emptyList())
         //Then
         assertThat(result.completedTasksPercent, `is`(0f))
         assertThat(result.activeTasksPercent, `is`(0f))
