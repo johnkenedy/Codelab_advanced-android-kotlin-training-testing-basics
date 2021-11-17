@@ -31,7 +31,14 @@ android {
     }
 
     packagingOptions {
-        resources.excludes.add("META-INF/*")
+        // for JNA and JNA-platform
+//        resources.excludes.add("META-INF/*")
+        exclude "META-INF/AL2.0"
+        exclude "META-INF/LGPL2.1"
+        // for byte-buddy
+        exclude "META-INF/licenses/ASM"
+        pickFirst "win32-x86-64/attach_hotspot_windows.dll"
+        pickFirst "win32-x86/attach_hotspot_windows.dll"
     }
 }
 
@@ -83,8 +90,14 @@ dependencies {
     androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion"
 
     // Testing code should not be included in the main code.
-    implementation "androidx.fragment:fragment-testing:$fragmentVersion"
+    debugImplementation "androidx.fragment:fragment-testing:$fragmentVersion"
     implementation "androidx.test:core:$androidXTestCoreVersion"
+
+    // Dependencies for Android instrumented unit tests
+    androidTestImplementation "org.mockito:mockito-core:$mockitoVersion"
+    implementation("org.mockito:mockito-android:3.12.4")
+//    androidTestImplementation "com.linkedin.dexmaker:dexmaker-mockito:$dexMakerVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:$espressoVersion"
 
     // Other dependencies
     testImplementation "org.hamcrest:hamcrest-all:$hamcrestVersion"
